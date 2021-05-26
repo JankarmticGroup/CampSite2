@@ -22,7 +22,7 @@ class Header extends Component {
     render() {
         return (
             <React.Fragment>
-                <Jumbotron fluid>
+                <Jumbotron fluid className='mb-0'>
                     <div className="container">
                         <div className="row">
                             <div className="col">
@@ -34,7 +34,7 @@ class Header extends Component {
                 </Jumbotron>
                 <Navbar dark sticky="top" expand="md">
                     
-                        <NavbarBrand className="mr-auto" href="/"><img src="/assets/images/logo.png" height="30" width="30" alt="NuCamp Logo" /></NavbarBrand>
+                        <NavbarBrand className="mr-auto mt-0" href="/"><img src="/assets/images/logo.png" height="30" width="30" alt="NuCamp Logo" /></NavbarBrand>
                         <NavbarToggler onClick={this.toggleNav} />
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
