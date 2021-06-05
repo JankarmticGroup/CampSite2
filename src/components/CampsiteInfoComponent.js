@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { LocalForm, Control } from 'react-redux-form';
 import ModalFooter from 'reactstrap/lib/ModalFooter';
+import { Loading } from './LoadingComponent';
 const errors = {
     author: ''
 };
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
+
 class CommentForm extends Component{   
 
 
@@ -20,6 +22,11 @@ class CommentForm extends Component{
                       isModalOpen: false
         };
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleSubmit(values) {
+        console.log("Current state is: " + JSON.stringify(values));
+        alert("Current state is: " + JSON.stringify(values));
     }
 
     toggleModal() {
@@ -27,17 +34,7 @@ class CommentForm extends Component{
             isModalOpen: !this.state.isModalOpen
         });
     }
-    validate(author) {
 
-        
-
-        if (this.state.touched.author) {
-            if (author.length < 2) {
-                errors.author = 'Name must be at least 2 characters.';
-            } else if (author.length > 15) {
-                errors.author = 'Name must be 15 or less characters.';
-            }
-        }}
 
     render () {
         return (
@@ -48,7 +45,7 @@ class CommentForm extends Component{
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader>Submit Comment</ModalHeader>
             <ModalBody>
-                <LocalForm>
+                <LocalForm onSubmit={values => this.handleSubmit(values)}>
                 <div className="form-group">
                     <Label htmlFor="rating" >Rating</Label>
                     <Control.select model=".rating" id="rating" name="rating">
@@ -125,6 +122,26 @@ function RenderComments({comments, addComment, campsiteId}){
 
 
 function CampsiteInfo(props){
+        if (props.isLoading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        if (props.errMess) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <h4>{props.errMess}</h4>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
      if (props.campsite) {                                                            
     return (
         <div className = "container">
