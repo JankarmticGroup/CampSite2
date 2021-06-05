@@ -102,7 +102,7 @@ class CommentForm extends Component{
             </Card>
          </div>)
 }; 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, campsiteId}){
     if(comments) {
         return (
             <div className= "md-5 md-1">
@@ -118,7 +118,7 @@ function RenderComments({comments}){
                     )
                      }
                      )}
-          <CommentForm />  </div>)}
+          <CommentForm campsiteId={campsiteId} addComment={addComment} />  </div>)}
                              
        //  <br></br> </div>
     }
@@ -140,7 +140,11 @@ function CampsiteInfo(props){
             </div>
             <div className= "row" >
                 <RenderCampsite campsite={props.campsite} />
-                <RenderComments comments={props.comments} />
+                <RenderComments 
+                        comments={props.comments}
+                        addComment={props.addComment}
+                        campsiteId={props.campsite.id}
+                    />
             </div>
             </div>)
 } return <div />;}

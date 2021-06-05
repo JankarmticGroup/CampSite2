@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
-
+import { addComment } from '../redux/ActionCreators';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Directory from './DirectoryComponent';
@@ -20,6 +20,9 @@ const mapStateToProps = state => {
         promotions: state.promotions
     };
 };
+const mapDispatchToProps = {
+    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
+};
 
 class Main extends Component { 
 
@@ -38,7 +41,9 @@ class Main extends Component {
         const CampsiteWithId = ({match}) => {
             return (
                 <CampsiteInfo campsite={this.props.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]} 
-                  comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)} />
+                  comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+                  addComment={this.props.addComment}
+                   />
             );
         };
 
@@ -59,4 +64,4 @@ class Main extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
