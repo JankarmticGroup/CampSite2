@@ -28,8 +28,8 @@ class CommentForm extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(values) {
-        console.log("Current state is: " + JSON.stringify(values));
-        alert("Current state is: " + JSON.stringify(values));
+        this.toggleModal();
+        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
     }
 
     toggleModal() {
@@ -102,7 +102,7 @@ class CommentForm extends Component{
             </Card>
          </div>)
 }; 
-function RenderComments({comments, addComment, campsiteId}){
+function RenderComments({comments, postComment, campsiteId}){
     if(comments) {
         return (
             <div className= "md-5 md-1">
@@ -118,7 +118,7 @@ function RenderComments({comments, addComment, campsiteId}){
                     )
                      }
                      )}
-          <CommentForm campsiteId={campsiteId} addComment={addComment} />  </div>)}
+          <CommentForm campsiteId={campsiteId} postComment={postComment} />  </div>)}
                              
        //  <br></br> </div>
     }
@@ -162,7 +162,7 @@ function CampsiteInfo(props){
                 <RenderCampsite campsite={props.campsite} />
                 <RenderComments 
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
                     />
             </div>
