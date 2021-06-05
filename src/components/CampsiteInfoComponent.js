@@ -5,6 +5,9 @@ import React, { Component } from 'react';
 import { LocalForm, Control } from 'react-redux-form';
 import ModalFooter from 'reactstrap/lib/ModalFooter';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+
+
 const errors = {
     author: ''
 };
@@ -91,7 +94,7 @@ class CommentForm extends Component{
      return (
         <div className= 'col-md-5 md-1'>  
             <Card>
-                <CardImg top src={campsite.image} alt={campsite.name} />
+            <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
                 <CardBody>
                     
                     <CardText>{campsite.description}</CardText>
